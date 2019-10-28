@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import App from './App'
 
 const notes = [
   {
@@ -22,26 +23,13 @@ const notes = [
   }
 ]
 
-const App = (props) => {
-  const { notes } = props
-  const rows = () => notes.map(note => <li key={note.id} >{note.content}</li>)
-
-  return (
-    <div>
-      <h1>Notes</h1>
-      <ul>
-        {rows()}
-      </ul>
-    </div>
-  )
-}
-
 ReactDOM.render(
   <App notes={notes} />,
   document.getElementById('root')
 )
 
-  
+const result = notes.map(note => note.content)
+console.log(result)
 
 
 // If you want your app to work offline and load faster, you can change
