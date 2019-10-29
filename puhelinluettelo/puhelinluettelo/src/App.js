@@ -34,7 +34,7 @@ const App = () => {
         } else {
           const message = `${newName} already on the list`
           window.alert(message)
-        }
+          }
         
       }
   }
