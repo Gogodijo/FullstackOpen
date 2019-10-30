@@ -1,17 +1,16 @@
 import React from 'react'
-import Persons from './Persons'
 
 const Filer = (props) => {
 
     return (
         <div>
-         Name: <form>
-             <input
+        <form onSubmit= {props.filterShowNames}>
+         Name: <input
                 value = {props.filterName}
-                onChange = {props.handeFilter}/>
-         </form>
+                onChange = {props.handleFilter}
+                />  <button type="submit">Filter</button>
+        </form>
         </div>
-        
     )
 }
 

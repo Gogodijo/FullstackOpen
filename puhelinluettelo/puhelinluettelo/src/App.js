@@ -12,14 +12,18 @@ const App = () => {
   ]) 
   const [ newName, setNewName ] = useState()
   const [ newNumber, setNewNumber] = useState()
-  const [filterName, setNewFilterName] = useState()
+  const [ filterName, setNewFilterName] = useState()
+  const [ filteredNames, setFilteredNames] = useState([])
 
   const handleFilter = (event) => {
-    setNewFilterName(event.target.value)
+    setNewFilterName(event.target.value.toLowerCase())
+    console.log(event.target.value)
+    filterShowNames()
   }
 
   const handlePersonChange = (event) => {
     setNewName(event.target.value)
+    console.log(event.target.value)
   }
 
   const handleNumberChange = (event) => {
@@ -27,21 +31,22 @@ const App = () => {
   }
 
   const filterShowNames = (event) => {
-    event.preventDefault()
-    const FilteredNames = []
-    for(name in persons){
-      if(name.name.contains(filterName)) {
-        FilteredNames.push(name)
+   // event.preventDefault()
+    for(var person of persons){
+      if(person.name.toLowerCase().includes(filterName)) {
+        const perosnToBeAdded= {
+          name: person.name,
+          number: person.number
+        }
+        
+        setFilteredNames(filteredNames.concat(perosnToBeAdded))
       }
     }
-    persons = FilteredNames
-
   }
   const addPerson  = (event) =>{
     event.preventDefault()
       if (newName !== ""){
         if (!persons.find((person) => { return person.name === newName })) {
-          console.log(persons)
           const personObject = {
             name: newName,
             number: newNumber
@@ -59,7 +64,8 @@ const App = () => {
 
       <h2>Phonebook</h2>
 
-      <Filter handleFilter = {handleFilter}
+      <Filter filterShowNames = {filterShowNames}
+      handleFilter = {handleFilter}
       filterName = {filterName} />
       <h2>Add Perons</h2>
       <AddPersonsForm addPerson = {addPerson}
@@ -71,7 +77,7 @@ const App = () => {
       
       <h2>Numbers</h2>
         <div>
-            <MapPersons persons={persons} />
+            <MapPersons persons={persons} filteredNames={filteredNames} />
         </div>
     </div>
   )
