@@ -5,7 +5,11 @@ const Filer = (props) => {
 
     return (
         <div>
-        <form></form>
+         Name: <form>
+             <input
+                value = {props.filterName}
+                onChange = {props.handeFilter}/>
+         </form>
         </div>
         
     )

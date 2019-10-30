@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-//import Filter from './components/Filer'
+import Filter from './components/Filer'
 import MapPersons from './components/MapPersons'
 import AddPersonsForm from './components/AddPersonsForm'
 
@@ -12,6 +12,11 @@ const App = () => {
   ]) 
   const [ newName, setNewName ] = useState()
   const [ newNumber, setNewNumber] = useState()
+  const [filterName, setNewFilterName] = useState()
+
+  const handleFilter = (event) => {
+    setNewFilterName(event.target.value)
+  }
 
   const handlePersonChange = (event) => {
     setNewName(event.target.value)
@@ -21,6 +26,17 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
+  const filterShowNames = (event) => {
+    event.preventDefault()
+    const FilteredNames = []
+    for(name in persons){
+      if(name.name.contains(filterName)) {
+        FilteredNames.push(name)
+      }
+    }
+    persons = FilteredNames
+
+  }
   const addPerson  = (event) =>{
     event.preventDefault()
       if (newName !== ""){
@@ -35,7 +51,6 @@ const App = () => {
           const message = `${newName} already on the list`
           window.alert(message)
           }
-        
       }
   }
 
@@ -43,13 +58,16 @@ const App = () => {
     <div>
 
       <h2>Phonebook</h2>
-      
+
+      <Filter handleFilter = {handleFilter}
+      filterName = {filterName} />
+      <h2>Add Perons</h2>
       <AddPersonsForm addPerson = {addPerson}
       newName = {newName}
       newNumber = {newNumber}
       handleNumberChange = {handleNumberChange}
       handlePersonChange = {handlePersonChange} />
-      <h2>Add Perons</h2>
+      
       
       <h2>Numbers</h2>
         <div>
